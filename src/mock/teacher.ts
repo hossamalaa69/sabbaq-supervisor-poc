@@ -4,7 +4,7 @@ export const mockTeacher: Teacher = {
   name: "Hossam Alaa",
   role: "Qudurat & Tahsili Teacher",
   school: "Al Noor International School",
-  email: "ahmed@example.com",
+  email: "hossam.alaa@example.com",
   phone: "+966 50 123 4567",
   b2bStatus: "approved",
   expectedStudents: 120,

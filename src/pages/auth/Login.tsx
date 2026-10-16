@@ -11,14 +11,14 @@ export default function Login() {
   const navigate = useNavigate();
   const login = useAuthStore((s) => s.login);
   const { t } = useTranslation();
-  const [email, setEmail] = useState("ahmed@example.com");
+  const [email, setEmail] = useState("hossam.alaa@example.com");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     login();
-    toast.success(t("auth.login.toastWelcome", { name: "Ahmed" }));
+    toast.success(t("auth.login.toastWelcome", { name: "Hossam" }));
     navigate("/dashboard");
   }
 

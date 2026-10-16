@@ -142,7 +142,7 @@ export const en: TranslationDict = {
       supportingDocuments: "Supporting documents",
       supportingDocumentsHint: "PDF, JPG or PNG — teaching license, ID, certificates",
       fullNamePlaceholder: "Hossam Alaa",
-      emailPlaceholder: "ahmed@example.com",
+      emailPlaceholder: "hossam.alaa@example.com",
       phonePlaceholder: "+966 50 123 4567",
       passwordPlaceholder: "••••••••",
       schoolPlaceholder: "Al Noor International School",

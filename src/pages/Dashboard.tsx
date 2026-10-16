@@ -98,7 +98,7 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold">{t("dashboard.welcome", { name: "Ahmed" })}</h2>
+          <h2 className="text-xl font-bold">{t("dashboard.welcome", { name: "Hossam" })}</h2>
           <p className="text-sm text-muted-foreground">{t("dashboard.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
