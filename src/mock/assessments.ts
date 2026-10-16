@@ -1,0 +1,102 @@
+import type { Assessment } from "@/types";
+
+export const mockAssessments: Assessment[] = [
+  {
+    id: "as-1",
+    name: "Qudurat Quantitative Practice",
+    examType: "qudurat",
+    classId: "cls-qdr-quant",
+    date: "2026-10-05",
+    studentsCount: 10,
+    averageScore: 78,
+    completionPct: 100,
+  },
+  {
+    id: "as-2",
+    name: "Qudurat Verbal Practice",
+    examType: "qudurat",
+    classId: "cls-qdr-verbal",
+    date: "2026-10-04",
+    studentsCount: 9,
+    averageScore: 71,
+    completionPct: 89,
+  },
+  {
+    id: "as-3",
+    name: "Tahsili Mathematics Practice",
+    examType: "tahsili",
+    classId: "cls-tah-math",
+    date: "2026-10-03",
+    studentsCount: 9,
+    averageScore: 82,
+    completionPct: 100,
+  },
+  {
+    id: "as-4",
+    name: "Tahsili Science Practice",
+    examType: "tahsili",
+    classId: "cls-tah-science",
+    date: "2026-10-01",
+    studentsCount: 8,
+    averageScore: 69,
+    completionPct: 75,
+  },
+  {
+    id: "as-5",
+    name: "Qudurat Quantitative Practice",
+    examType: "qudurat",
+    classId: "cls-qdr-quant",
+    date: "2026-09-27",
+    studentsCount: 10,
+    averageScore: 74,
+    completionPct: 100,
+  },
+  {
+    id: "as-6",
+    name: "Tahsili Mathematics Practice",
+    examType: "tahsili",
+    classId: "cls-tah-math",
+    date: "2026-09-24",
+    studentsCount: 9,
+    averageScore: 79,
+    completionPct: 89,
+  },
+  {
+    id: "as-7",
+    name: "Qudurat Verbal Skills Review",
+    examType: "qudurat",
+    classId: "cls-qdr-verbal",
+    date: "2026-09-22",
+    studentsCount: 9,
+    averageScore: 68,
+    completionPct: 100,
+  },
+  {
+    id: "as-8",
+    name: "Tahsili Science Foundations",
+    examType: "tahsili",
+    classId: "cls-tah-science",
+    date: "2026-09-20",
+    studentsCount: 8,
+    averageScore: 72,
+    completionPct: 88,
+  },
+];
+
+/** Score-over-time series for dashboard charts, derived from assessment history. */
+export const scoreOverTimeSeries = [
+  { date: "Sep 10", qudurat: 68, tahsili: 70 },
+  { date: "Sep 17", qudurat: 71, tahsili: 73 },
+  { date: "Sep 24", qudurat: 73, tahsili: 79 },
+  { date: "Oct 01", qudurat: 75, tahsili: 74 },
+  { date: "Oct 04", qudurat: 78, tahsili: 82 },
+  { date: "Oct 07", qudurat: 80, tahsili: 84 },
+];
+
+export const performanceDistribution = [
+  { range: "90-100", students: 4 },
+  { range: "80-89", students: 7 },
+  { range: "70-79", students: 10 },
+  { range: "60-69", students: 8 },
+  { range: "Below 60", students: 7 },
+];

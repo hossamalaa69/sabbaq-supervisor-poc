@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist/
+out-tsc/
+/build/
+
+# Angular cache
+.angular/
+.cache/
+
+# Environment files (real secrets — never commit)
+.env
+.env.*
+!.env.example
+!.env.staging
+!.env.production
+
+# Generated at build/serve time from the .env files above — see
+# projects/ai-widget/generate-config.js
+projects/ai-widget/src/lib/default-config.generated.ts
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+coverage/
+
+# Angular specific
+*.tsbuildinfo
+
+# Misc
+.tmp/
+temp/
+
+# Playwright
+/e2e-report
+/test-results
