@@ -1,4 +1,4 @@
-import type { Assessment, Question, SabbaqClass, StudyMaterial } from "@/types";
+import type { Assessment, Assignment, Question, SabbaqClass, StudyMaterial } from "@/types";
 import type { Language } from "./i18n";
 
 type ClassContent = Pick<SabbaqClass, "name" | "description">;
@@ -8,68 +8,74 @@ type QuestionContent = Pick<Question, "topic" | "prompt" | "explanation"> & {
   reviewFeedback?: string;
 };
 type AssessmentContent = Pick<Assessment, "name">;
+type AssignmentContent = Pick<Assignment, "title">;
 
 const arabicClasses: Record<string, ClassContent> = {
   "cls-qdr-quant": {
-    name: "القدرات - الكمي",
-    description: "الاستعداد للقسم الكمي في اختبار القدرات، مع تدريبات على الأعداد والجبر والهندسة.",
+    name: "Qudurat - الكمي",
+    description: "الاستعداد للقسم الكمي في اختبار Qudurat، مع تدريبات على الأعداد والجبر والهندسة.",
   },
   "cls-qdr-verbal": {
-    name: "القدرات - اللفظي",
-    description: "تدريبات على الاستدلال اللفظي والتناظر اللفظي لاختبار القدرات.",
+    name: "Qudurat - اللفظي",
+    description: "تدريبات على الاستدلال اللفظي والتناظر اللفظي لاختبار Qudurat.",
   },
   "cls-tah-math": {
-    name: "التحصيلي - الرياضيات",
+    name: "Tahsili - الرياضيات",
     description: "منهج الرياضيات الأساسي المتوافق مع اختبار التحصيل الدراسي.",
   },
   "cls-tah-science": {
-    name: "التحصيلي - العلوم",
+    name: "Tahsili - العلوم",
     description: "مراجعة الفيزياء والكيمياء والأحياء لاختبار التحصيل الدراسي.",
   },
 };
 
 const arabicMaterials: Record<string, MaterialContent> = {
   "mat-1": {
-    title: "القدرات الكمي — ملخص النسب والتناسب",
+    title: "Qudurat الكمي — ملخص النسب والتناسب",
     subject: "الكمي",
     topic: "النسب",
   },
   "mat-2": {
-    title: "القدرات اللفظي — ورقة مراجعة التناظر اللفظي",
+    title: "Qudurat اللفظي — ورقة مراجعة التناظر اللفظي",
     subject: "اللفظي",
     topic: "التناظر اللفظي",
   },
   "mat-3": {
-    title: "رياضيات التحصيلي — شرح متعمق للدوال",
+    title: "رياضيات Tahsili — شرح متعمق للدوال",
     subject: "الرياضيات",
     topic: "الدوال",
   },
   "mat-4": {
-    title: "علوم التحصيلي — حزمة تمارين الحسابات الكيميائية",
+    title: "علوم Tahsili — حزمة تمارين الحسابات الكيميائية",
     subject: "العلوم",
     topic: "الكيمياء",
   },
   "mat-5": {
-    title: "القدرات الكمي — مرجع قوانين الهندسة",
+    title: "Qudurat الكمي — مرجع قوانين الهندسة",
     subject: "الكمي",
     topic: "الهندسة",
   },
   "mat-6": {
-    title: "علوم التحصيلي — ملاحظات مراجعة الميكانيكا",
+    title: "علوم Tahsili — ملاحظات مراجعة الميكانيكا",
     subject: "العلوم",
     topic: "الفيزياء",
   },
 };
 
 const arabicAssessments: Record<string, AssessmentContent> = {
-  "as-1": { name: "اختبار تدريبي - القدرات الكمي" },
-  "as-2": { name: "اختبار تدريبي - القدرات اللفظي" },
-  "as-3": { name: "اختبار تدريبي - رياضيات التحصيلي" },
-  "as-4": { name: "اختبار تدريبي - علوم التحصيلي" },
-  "as-5": { name: "مراجعة القدرات الكمي" },
-  "as-6": { name: "مراجعة رياضيات التحصيلي" },
-  "as-7": { name: "مراجعة مهارات القدرات اللفظي" },
-  "as-8": { name: "أساسيات علوم التحصيلي" },
+  "as-1": { name: "اختبار تدريبي - Qudurat الكمي" },
+  "as-2": { name: "اختبار تدريبي - Qudurat اللفظي" },
+  "as-3": { name: "اختبار تدريبي - رياضيات Tahsili" },
+  "as-4": { name: "اختبار تدريبي - علوم Tahsili" },
+  "as-5": { name: "مراجعة Qudurat الكمي" },
+  "as-6": { name: "مراجعة رياضيات Tahsili" },
+  "as-7": { name: "مراجعة مهارات Qudurat اللفظي" },
+  "as-8": { name: "أساسيات علوم Tahsili" },
+};
+
+const arabicAssignments: Record<string, AssignmentContent> = {
+  "assignment-1": { title: "مراجعة الاستدلال الكمي" },
+  "assignment-2": { title: "مراجعة أساسيات العلوم" },
 };
 
 const arabicQuestions: Record<string, QuestionContent> = {
@@ -192,6 +198,11 @@ export function localizeMaterialContent(value: StudyMaterial, lang: Language): S
 
 export function localizeAssessmentContent(value: Assessment, lang: Language): Assessment {
   const localized = lang === "ar" ? arabicAssessments[value.id] : undefined;
+  return localized ? { ...value, ...localized } : value;
+}
+
+export function localizeAssignmentContent(value: Assignment, lang: Language): Assignment {
+  const localized = lang === "ar" ? arabicAssignments[value.id] : undefined;
   return localized ? { ...value, ...localized } : value;
 }
 

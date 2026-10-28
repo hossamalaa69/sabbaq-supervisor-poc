@@ -7,3 +7,4 @@ export * from "./studyroom";
 export * from "./teacher";
 export * from "./meeting";
 export * from "./notification";
+export * from "./assignment";

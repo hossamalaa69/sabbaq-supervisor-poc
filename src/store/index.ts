@@ -9,3 +9,4 @@ export * from "./meetingAgentUiStore";
 export * from "./notificationsStore";
 export * from "./adminRequestsStore";
 export * from "./demoStore";
+export * from "./assignmentsStore";

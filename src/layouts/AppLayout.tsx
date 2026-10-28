@@ -14,6 +14,7 @@ const titleMap: { match: RegExp; key: string }[] = [
   { match: /^\/questions\/create/, key: "pageTitle.createQuestion" },
   { match: /^\/questions\/upload/, key: "pageTitle.uploadQuestions" },
   { match: /^\/questions/, key: "pageTitle.questions" },
+  { match: /^\/assignments/, key: "pageTitle.assignments" },
   { match: /^\/study-rooms\/[^/]+\/topics\/[^/]+$/, key: "pageTitle.topicDiscussion" },
   { match: /^\/study-rooms\/[^/]+$/, key: "pageTitle.studyRoom" },
   { match: /^\/study-rooms/, key: "pageTitle.studyRooms" },

@@ -7,8 +7,8 @@ export type ExamType = "qudurat" | "tahsili";
 export const EXAM_TYPES: ExamType[] = ["qudurat", "tahsili"];
 
 export const examTypeLabels: Record<ExamType, string> = {
-  qudurat: "Qudurat (قدرات)",
-  tahsili: "Tahsili (تحصيلي)",
+  qudurat: "Qudurat",
+  tahsili: "Tahsili",
 };
 
 export const examTypeShortLabels: Record<ExamType, string> = {

@@ -10,7 +10,7 @@ const seededNotifications: PortalNotification[] = [
     title: { en: "Exam season schedule published", ar: "نشر جدول موسم الاختبارات" },
     message: {
       en: "Administration published the Qudurat and Tahsili revision calendar for this term.",
-      ar: "نشرت الإدارة تقويم مراجعات القدرات والتحصيلي لهذا الفصل.",
+      ar: "نشرت الإدارة تقويم مراجعات Qudurat وTahsili لهذا الفصل.",
     },
     createdAt: "2026-10-15T09:00:00",
     read: false,

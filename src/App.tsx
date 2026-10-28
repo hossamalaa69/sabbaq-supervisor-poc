@@ -23,6 +23,7 @@ import NotificationsPage from "@/pages/NotificationsPage";
 import AdminRequestsPage from "@/pages/AdminRequestsPage";
 import SettingsPage from "@/pages/SettingsPage";
 import NotFound from "@/pages/NotFound";
+import AssignmentsPage from "@/pages/AssignmentsPage";
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/questions/review" element={<QuestionReviewPage />} />
         <Route path="/questions/create" element={<CreateQuestionPage />} />
         <Route path="/questions/upload" element={<UploadQuestionsPage />} />
+        <Route path="/assignments" element={<AssignmentsPage />} />
         <Route path="/study-rooms" element={<StudyRoomsList />} />
         <Route path="/study-rooms/:id" element={<StudyRoomDetail />} />
         <Route path="/study-rooms/:id/topics/:topicId" element={<TopicDiscussion />} />
