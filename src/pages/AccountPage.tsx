@@ -7,6 +7,7 @@ import { ExamTypeBadge } from "@/components/ExamTypeBadge";
 import { useAuthStore } from "@/store";
 import { EXAM_TYPES } from "@/types";
 import { useTranslation } from "@/utils/i18n";
+import { localizeTeacherContent } from "@/utils/contentTranslations";
 
 const statusVariant = {
   pending: "warning",
@@ -18,28 +19,29 @@ const statusVariant = {
 
 export default function AccountPage() {
   const teacher = useAuthStore((s) => s.teacher);
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
+  const displayTeacher = localizeTeacherContent(teacher, lang);
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <Card>
         <CardContent className="flex flex-wrap items-center gap-5 pt-6">
-          <Avatar name={teacher.name} size="lg" />
+          <Avatar name={displayTeacher.name} size="lg" />
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-xl font-bold">{teacher.name}</h2>
+              <h2 className="text-xl font-bold">{displayTeacher.name}</h2>
               <Badge variant={statusVariant[teacher.b2bStatus]}>{t(`enums.b2bStatus.${teacher.b2bStatus}`)}</Badge>
             </div>
-            <p className="text-sm text-muted-foreground">{teacher.role}</p>
+            <p className="text-sm text-muted-foreground">{displayTeacher.role}</p>
             <div className="mt-2 flex flex-wrap gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <Mail className="h-4 w-4" /> {teacher.email}
               </span>
               <span className="flex items-center gap-1.5">
-                <Phone className="h-4 w-4" /> {teacher.phone}
+                <Phone className="h-4 w-4" /> {displayTeacher.phone}
               </span>
               <span className="flex items-center gap-1.5">
-                <School className="h-4 w-4" /> {teacher.school}
+                <School className="h-4 w-4" /> {displayTeacher.school}
               </span>
             </div>
           </div>
@@ -53,7 +55,7 @@ export default function AccountPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-wrap gap-2">
-          {teacher.certificates.map((cert) => (
+          {displayTeacher.certificates.map((cert) => (
             <Badge key={cert} variant="secondary">
               {cert}
             </Badge>

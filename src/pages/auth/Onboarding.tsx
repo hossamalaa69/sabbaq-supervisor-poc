@@ -12,10 +12,11 @@ import { useClassesStore } from "@/store";
 import { EXAM_TYPES, examSections, examTypeLabels, type ExamType, type SabbaqClass } from "@/types";
 import { toast } from "sonner";
 import { useTranslation } from "@/utils/i18n";
+import { localizeClassContent } from "@/utils/contentTranslations";
 
 export default function Onboarding() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const [tab, setTab] = useState("classes");
   const { classes, addClass, updateClass, deleteClass } = useClassesStore();
   const defaultGroups = [
@@ -104,7 +105,7 @@ export default function Onboarding() {
                       <Users className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold">{cls.name}</p>
+                      <p className="text-sm font-semibold">{localizeClassContent(cls, lang).name}</p>
                       <div className="mt-1 flex items-center gap-2">
                         <ExamTypeBadge examType={cls.examType} />
                         <span className="text-xs text-muted-foreground">{t("classes.studentsCount", { count: cls.studentCount })}</span>

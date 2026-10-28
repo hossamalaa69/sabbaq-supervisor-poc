@@ -38,6 +38,7 @@ import { useTranslation } from "@/utils/i18n";
 import {
   localizeAssessmentContent,
   localizeClassContent,
+  localizePersonName,
 } from "@/utils/contentTranslations";
 import { cn } from "@/utils/cn";
 import { toast } from "sonner";
@@ -98,10 +99,10 @@ export default function StudentDetail() {
 
       <Card>
         <CardContent className="flex flex-wrap items-center gap-5 pt-6">
-          <Avatar name={student.name} color={student.avatarColor} size="lg" />
+          <Avatar name={localizePersonName(student.name, lang)} color={student.avatarColor} size="lg" />
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-xl font-bold">{student.name}</h2>
+              <h2 className="text-xl font-bold">{localizePersonName(student.name, lang)}</h2>
               <ExamTypeBadge examType={student.examType} />
               <Badge variant={student.status === "active" ? "success" : "outline"}>{t(`enums.studentStatus.${student.status}`)}</Badge>
               {student.accessStatus === "deactivated" && (

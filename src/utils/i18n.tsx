@@ -85,6 +85,7 @@ function applyDocumentAttributes(lang: Language) {
   if (typeof document === "undefined") return;
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.title = lang === "ar" ? "سبّاق — بوابة المعلم" : "Sabbaq — Teacher Portal";
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

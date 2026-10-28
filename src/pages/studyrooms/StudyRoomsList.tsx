@@ -12,9 +12,14 @@ import { useStudyRoomStore, useClassesStore, useStudentsStore } from "@/store";
 import { EXAM_TYPES, type ExamType } from "@/types";
 import { toast } from "sonner";
 import { useTranslation } from "@/utils/i18n";
+import {
+  localizeClassContent,
+  localizePersonName,
+  localizeStudyRoomContent,
+} from "@/utils/contentTranslations";
 
 export default function StudyRoomsList() {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const navigate = useNavigate();
   const rooms = useStudyRoomStore((s) => s.rooms);
   const createRoom = useStudyRoomStore((s) => s.createRoom);
@@ -72,7 +77,9 @@ export default function StudyRoomsList() {
         <EmptyState icon={<MessagesSquare className="h-8 w-8" />} title={t("studyRooms.noRooms.title")} description={t("studyRooms.noRooms.desc")} />
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {rooms.map((room) => (
+          {rooms.map((room) => {
+            const displayRoom = localizeStudyRoomContent(room, lang);
+            return (
             <button key={room.id} onClick={() => navigate(`/study-rooms/${room.id}`)} className="text-start">
               <Card className="h-full transition-shadow hover:shadow-popover">
                 <CardContent className="pt-5">
@@ -89,8 +96,8 @@ export default function StudyRoomsList() {
                       }
                     </span>
                   </div>
-                  <h3 className="font-bold">{room.name}</h3>
-                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{room.description}</p>
+                  <h3 className="font-bold">{displayRoom.name}</h3>
+                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{displayRoom.description}</p>
                   <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                     <span>{t("studyRooms.topicsCount", { count: room.topics.length })}</span>
                     <span>{t("studyRooms.messagesCount", { count: room.messages.length })}</span>
@@ -108,7 +115,8 @@ export default function StudyRoomsList() {
                 </CardContent>
               </Card>
             </button>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -144,7 +152,7 @@ export default function StudyRoomsList() {
               <Select className="mt-1.5" value={classId} onChange={(e) => setClassId(e.target.value)}>
                 {classes.filter((c) => c.examType === examType).map((c) => (
                   <option key={c.id} value={c.id}>
-                    {c.name}
+                    {localizeClassContent(c, lang).name}
                   </option>
                 ))}
               </Select>
@@ -167,7 +175,7 @@ export default function StudyRoomsList() {
                       )
                     }
                   />
-                  {s.name}
+                  {localizePersonName(s.name, lang)}
                 </label>
               ))}
             </div>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Bot, Send, X, Sparkles, Video, Copy, Check } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { localizeClassContent, localizePersonName } from "@/utils/contentTranslations";
 import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Input";
 import { type ExamType } from "@/types";
@@ -51,7 +52,7 @@ function detectExamType(text: string): ExamType | null {
 }
 
 export function MeetingAgent() {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const open = useMeetingAgentUiStore((s) => s.isOpen);
   const setOpenStore = useMeetingAgentUiStore((s) => s.open);
   const closeStore = useMeetingAgentUiStore((s) => s.close);
@@ -98,7 +99,7 @@ export function MeetingAgent() {
       {
         id: generateId("m"),
         role: "agent",
-        text: t("meetingAgent.prefillMessage", { class: cls.name }),
+        text: t("meetingAgent.prefillMessage", { class: localizeClassContent(cls, lang).name }),
       },
     ]);
     setStage("title");
@@ -263,7 +264,7 @@ export function MeetingAgent() {
               {classStudents.map((s) => (
                 <label key={s.id} className="flex items-center gap-2 text-sm">
                   <Checkbox checked={selectedIds.includes(s.id)} onChange={() => toggleStudent(s.id)} />
-                  {s.name}
+                  {localizePersonName(s.name, lang)}
                 </label>
               ))}
             </div>

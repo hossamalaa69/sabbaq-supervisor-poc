@@ -13,6 +13,7 @@ import {
   localizeAssignmentContent,
   localizeClassContent,
   localizeQuestionContent,
+  localizePersonName,
 } from "@/utils/contentTranslations";
 import { useTranslation } from "@/utils/i18n";
 
@@ -497,7 +498,9 @@ export default function AssignmentsPage() {
                       const classItem = classes.find((item) => item.id === submission.classId);
                       return (
                         <TableRow key={`${assignment.id}-${submission.studentId}`}>
-                          <TableCell className="font-medium">{student?.name ?? t("common.dash")}</TableCell>
+                          <TableCell className="font-medium">
+                            {student ? localizePersonName(student.name, lang) : t("common.dash")}
+                          </TableCell>
                           <TableCell className="text-muted-foreground">
                             {classItem ? localizeClassContent(classItem, lang).name : t("common.dash")}
                           </TableCell>

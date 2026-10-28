@@ -15,7 +15,7 @@ import { useStudentsStore, useClassesStore } from "@/store";
 import { EXAM_TYPES, type ExamType, type StudentGroup } from "@/types";
 import { formatDate } from "@/utils/format";
 import { useTranslation } from "@/utils/i18n";
-import { localizeClassContent } from "@/utils/contentTranslations";
+import { localizeClassContent, localizePersonName } from "@/utils/contentTranslations";
 import { toast } from "sonner";
 
 const groupOptions: StudentGroup[] = ["Advanced", "Intermediate", "Needs Support"];
@@ -59,7 +59,11 @@ export default function StudentsList() {
   const filtered = useMemo(() => {
     return students.filter((s) => {
       if (idsFilter && !idsFilter.includes(s.id)) return false;
-      if (search && !s.name.toLowerCase().includes(search.toLowerCase())) return false;
+      if (
+        search &&
+        !s.name.toLowerCase().includes(search.toLowerCase()) &&
+        !localizePersonName(s.name, lang).toLowerCase().includes(search.toLowerCase())
+      ) return false;
       if (classFilter !== "all" && s.classId !== classFilter) return false;
       if (examFilter !== "all" && s.examType !== examFilter) return false;
       if (groupFilter !== "all" && s.group !== groupFilter) return false;
@@ -145,9 +149,9 @@ export default function StudentsList() {
                   <CardContent className="space-y-4 pt-5">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex min-w-0 items-center gap-3">
-                        <Avatar name={request.name} size="md" />
+                        <Avatar name={localizePersonName(request.name, lang)} size="md" />
                         <div className="min-w-0">
-                          <p className="truncate font-bold">{request.name}</p>
+                          <p className="truncate font-bold">{localizePersonName(request.name, lang)}</p>
                           <p className="truncate text-sm text-muted-foreground">{request.email}</p>
                           <p className="text-sm text-muted-foreground">{request.phone}</p>
                         </div>
@@ -185,7 +189,7 @@ export default function StudentsList() {
                         className="flex-1 gap-1.5"
                         onClick={() => {
                           acceptJoinRequest(request.id);
-                          toast.success(t("students.requests.toastAccepted", { name: request.name }));
+                          toast.success(t("students.requests.toastAccepted", { name: localizePersonName(request.name, lang) }));
                         }}
                       >
                         <UserCheck className="h-4 w-4" /> {t("students.requests.accept")}
@@ -195,7 +199,7 @@ export default function StudentsList() {
                         className="flex-1 gap-1.5 text-destructive"
                         onClick={() => {
                           rejectJoinRequest(request.id);
-                          toast.success(t("students.requests.toastRejected", { name: request.name }));
+                          toast.success(t("students.requests.toastRejected", { name: localizePersonName(request.name, lang) }));
                         }}
                       >
                         <UserX className="h-4 w-4" /> {t("students.requests.reject")}
@@ -319,8 +323,8 @@ export default function StudentsList() {
                       className="flex items-center gap-2.5 text-start"
                       onClick={() => navigate(`/students/${s.id}`)}
                     >
-                      <Avatar name={s.name} color={s.avatarColor} size="sm" />
-                      <span className="font-semibold">{s.name}</span>
+                      <Avatar name={localizePersonName(s.name, lang)} color={s.avatarColor} size="sm" />
+                      <span className="font-semibold">{localizePersonName(s.name, lang)}</span>
                     </button>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">{displayClass?.name ?? t("common.dash")}</TableCell>

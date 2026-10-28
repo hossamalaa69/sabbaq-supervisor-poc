@@ -10,6 +10,7 @@ import { useAdminRequestsStore } from "@/store";
 import type { AdminRequestCategory, AdminRequestKind, AdminRequestStatus } from "@/types";
 import { formatDate } from "@/utils/format";
 import { useTranslation } from "@/utils/i18n";
+import { localizeAdminRequestContent } from "@/utils/contentTranslations";
 
 const statusVariant: Record<AdminRequestStatus, "default" | "warning" | "success" | "destructive"> = {
   submitted: "default",
@@ -103,13 +104,15 @@ export default function AdminRequestsPage() {
             description={t("adminRequests.emptyDesc")}
           />
         ) : (
-          requests.map((request) => (
+          requests.map((request) => {
+            const displayRequest = localizeAdminRequestContent(request, lang);
+            return (
             <Card key={request.id}>
               <CardContent className="space-y-4 pt-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <p dir="auto" className="font-bold">{request.subject}</p>
+                      <p dir="auto" className="font-bold">{displayRequest.subject}</p>
                       <Badge variant={statusVariant[request.status]}>
                         {t(`adminRequests.statuses.${request.status}`)}
                       </Badge>
@@ -126,7 +129,7 @@ export default function AdminRequestsPage() {
                   )}
                 </div>
 
-                <p dir="auto" className="rounded-xl bg-muted/50 p-3 text-sm">{request.message}</p>
+                <p dir="auto" className="rounded-xl bg-muted/50 p-3 text-sm">{displayRequest.message}</p>
 
                 {request.responses.length > 0 ? (
                   <div className="space-y-2">
@@ -147,7 +150,8 @@ export default function AdminRequestsPage() {
                 )}
               </CardContent>
             </Card>
-          ))
+            );
+          })
         )}
       </div>
     </div>

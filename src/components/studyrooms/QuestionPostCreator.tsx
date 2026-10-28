@@ -6,6 +6,7 @@ import { useStudyRoomStore } from "@/store";
 import type { ExamType } from "@/types";
 import { toast } from "sonner";
 import { useTranslation } from "@/utils/i18n";
+import { localizeChoiceLabel } from "@/utils/contentTranslations";
 
 export function QuestionPostCreator({
   open,
@@ -18,7 +19,7 @@ export function QuestionPostCreator({
   roomId: string;
   examType: ExamType;
 }) {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const createQuestionPost = useStudyRoomStore((s) => s.createQuestionPost);
   const [prompt, setPrompt] = useState("");
   const [choices, setChoices] = useState(["", "", "", ""]);
@@ -64,13 +65,13 @@ export function QuestionPostCreator({
                 onChange={() => setCorrectIndex(i)}
                 className="h-4 w-4 text-primary"
               />
-              <span className="w-6 text-sm font-bold">{["A", "B", "C", "D"][i]}</span>
+              <span className="w-6 text-sm font-bold">{localizeChoiceLabel(["A", "B", "C", "D"][i], i, lang)}</span>
               <Input
                 value={choice}
                 onChange={(e) =>
                   setChoices((prev) => prev.map((c, idx) => (idx === i ? e.target.value : c)))
                 }
-                placeholder={t("studyRooms.questionPost.choicePlaceholder", { label: ["A", "B", "C", "D"][i] })}
+                placeholder={t("studyRooms.questionPost.choicePlaceholder", { label: localizeChoiceLabel(["A", "B", "C", "D"][i], i, lang) })}
               />
             </div>
           ))}

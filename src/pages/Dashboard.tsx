@@ -40,6 +40,12 @@ import { type ExamType } from "@/types";
 import { formatDate, relativeTime } from "@/utils/format";
 import { cn } from "@/utils/cn";
 import { useTranslation } from "@/utils/i18n";
+import {
+  localizeAlertContent,
+  localizeAssessmentContent,
+  localizeClassContent,
+  localizeInsightContent,
+} from "@/utils/contentTranslations";
 
 type Filter = "all" | ExamType;
 
@@ -89,6 +95,27 @@ export default function Dashboard() {
       ),
     [filter]
   );
+  const localizedScoreSeries = useMemo(
+    () =>
+      scoreOverTimeSeries.map((point) => ({
+        ...point,
+        date:
+          lang === "ar"
+            ? point.date
+                .replace("Sep", "سبتمبر")
+                .replace("Oct", "أكتوبر")
+            : point.date,
+      })),
+    [lang]
+  );
+  const localizedPerformanceDistribution = useMemo(
+    () =>
+      performanceDistribution.map((point) => ({
+        ...point,
+        range: lang === "ar" && point.range === "Below 60" ? "أقل من 60" : point.range,
+      })),
+    [lang]
+  );
 
   function goToCategory(category: string) {
     navigate(`/students?category=${category}`);
@@ -98,7 +125,9 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold">{t("dashboard.welcome", { name: "Hossam" })}</h2>
+          <h2 className="text-xl font-bold">
+            {t("dashboard.welcome", { name: lang === "ar" ? "حسام" : "Hossam" })}
+          </h2>
           <p className="text-sm text-muted-foreground">{t("dashboard.subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
@@ -148,7 +177,7 @@ export default function Dashboard() {
                     {cat.category === "improving" && <ArrowUpRight className="h-4 w-4 text-success" />}
                     {cat.category === "struggling" && <TrendingDown className="h-4 w-4 text-destructive" />}
                     {cat.category === "inactive" && <MinusCircle className="h-4 w-4 text-muted-foreground" />}
-                    {cat.label}
+                    {t(`filters.${cat.category}`)}
                   </p>
                   <p className="mt-1 text-2xl font-extrabold">{cat.count}</p>
                   <p className="text-xs text-muted-foreground">{t("dashboard.percentOfStudents", { pct: cat.percentage })}</p>
@@ -167,7 +196,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="h-72 ps-0">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={scoreOverTimeSeries} margin={{ left: -10, right: 10 }}>
+              <LineChart data={localizedScoreSeries} margin={{ left: -10, right: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis dataKey="date" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" domain={[50, 100]} />
@@ -191,7 +220,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="h-72 ps-0">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={performanceDistribution} margin={{ left: -10, right: 10 }}>
+              <BarChart data={localizedPerformanceDistribution} margin={{ left: -10, right: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis dataKey="range" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
                 <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" allowDecimals={false} />
@@ -212,14 +241,16 @@ export default function Dashboard() {
           <CardContent className="space-y-3">
             {filteredAssessments.map((a) => {
               const cls = classes.find((c) => c.id === a.classId);
+              const displayAssessment = localizeAssessmentContent(a, lang);
+              const displayClass = cls ? localizeClassContent(cls, lang) : null;
               return (
                 <div key={a.id} className="rounded-xl border border-border p-3">
                   <div className="mb-2 flex items-center justify-between gap-2">
-                    <p className="text-sm font-semibold">{a.name}</p>
+                    <p className="text-sm font-semibold">{displayAssessment.name}</p>
                     <ExamTypeBadge examType={a.examType} />
                   </div>
                   <div className="mb-2 flex flex-wrap gap-3 text-xs text-muted-foreground">
-                    <span>{cls?.name ?? t("common.dash")}</span>
+                    <span>{displayClass?.name ?? t("common.dash")}</span>
                     <span>{formatDate(a.date, lang)}</span>
                     <span>{t("dashboard.recentAssessments.studentsCount", { count: a.studentsCount })}</span>
                     <span>{t("dashboard.recentAssessments.avgLabel", { pct: a.averageScore })}</span>
@@ -247,7 +278,7 @@ export default function Dashboard() {
                 <div key={insight.id} className="flex gap-2 rounded-xl bg-primary/5 p-3 text-sm">
                   <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                   <div>
-                    <p>{insight.message}</p>
+                    <p>{localizeInsightContent(insight, lang).message}</p>
                     <p className="mt-1 text-xs text-muted-foreground">{relativeTime(insight.createdAt, lang)}</p>
                   </div>
                 </div>
@@ -275,7 +306,7 @@ export default function Dashboard() {
                   >
                     {t(`enums.severity.${alert.severity}`)}
                   </Badge>
-                  <span>{alert.message}</span>
+                  <span>{localizeAlertContent(alert, lang).message}</span>
                 </button>
               ))}
             </CardContent>

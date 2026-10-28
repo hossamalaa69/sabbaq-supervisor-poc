@@ -72,7 +72,7 @@ export const ar: TranslationDict = {
     adminRequests: "طلبات الإدارة",
     brandName: "سبّاق",
     brandTagline: "بوابة المعلم",
-    supportedTracksTitle: "Qudurat وTahsili",
+    supportedTracksTitle: "القدرات والتحصيلي",
     supportedTracksDesc: "مسارات الاختبارات المدعومة لهذا الحساب.",
     openNavigation: "فتح القائمة",
   },
@@ -168,7 +168,7 @@ export const ar: TranslationDict = {
   language: {
     switchTo: "تغيير اللغة",
     arabic: "العربية",
-    english: "English",
+    english: "الإنجليزية",
   },
   auth: {
     login: {
@@ -207,13 +207,13 @@ export const ar: TranslationDict = {
       licenseNumber: "رقم رخصة التدريس",
       licenseExpiry: "تاريخ انتهاء الرخصة",
       supportingDocuments: "المستندات الداعمة",
-      supportingDocumentsHint: "PDF أو JPG أو PNG — رخصة التدريس، الهوية، الشهادات",
+      supportingDocumentsHint: "ملفات المستندات والصور — رخصة التدريس، الهوية، الشهادات",
       fullNamePlaceholder: "حسام علاء",
       emailPlaceholder: "hossamalaa@example.com",
       phonePlaceholder: "+966 50 123 4567",
       passwordPlaceholder: "••••••••",
       schoolPlaceholder: "مدرسة النور الدولية",
-      teacherRolePlaceholder: "معلم Qudurat وTahsili",
+      teacherRolePlaceholder: "معلم القدرات والتحصيلي",
       subjectsPlaceholder: "رياضيات، تفكير لفظي",
       licenseNumberPlaceholder: "TL-2026-00451",
       review: {
@@ -243,7 +243,7 @@ export const ar: TranslationDict = {
         benefits: "مزايا الشراكة",
       },
       classesCardTitle: "الفصول الدراسية",
-      classesCardDesc: "فصول Qudurat وTahsili التي ستدرّسها هذا الفصل الدراسي",
+      classesCardDesc: "فصول القدرات والتحصيلي التي ستدرّسها هذا الفصل الدراسي",
       createClass: "إنشاء فصل",
       groupsCardTitle: "مجموعات الطلاب",
       groupsCardDesc: "تُستخدم لتصنيف الطلاب حسب مستوى الأداء في جميع الفصول",
@@ -288,7 +288,7 @@ export const ar: TranslationDict = {
   },
   dashboard: {
     welcome: "مرحباً بعودتك، {{name}} 👋",
-    subtitle: "إليك أداء طلابك في اختباري Qudurat وTahsili.",
+    subtitle: "إليك أداء طلابك في اختباري القدرات والتحصيلي.",
     inviteStudents: "دعوة طلاب",
     kpis: {
       totalStudents: "إجمالي الطلاب",
@@ -300,19 +300,19 @@ export const ar: TranslationDict = {
     percentOfStudents: "{{pct}}% من الطلاب",
     charts: {
       scoreOverTimeTitle: "متوسط الدرجات عبر الزمن",
-      scoreOverTimeDesc: "مقارنة متوسط درجات Qudurat وTahsili عبر آخر الاختبارات",
+      scoreOverTimeDesc: "مقارنة متوسط درجات اختباري القدرات والتحصيلي عبر أحدث الاختبارات",
       performanceDistTitle: "توزيع أداء الطلاب",
       performanceDistDesc: "عدد الطلاب حسب نطاق الدرجات",
     },
     recentAssessments: {
       title: "أحدث الاختبارات",
-      desc: "أحدث اختبارات Qudurat وTahsili التدريبية",
+      desc: "أحدث الاختبارات التدريبية للقدرات والتحصيلي",
       avgLabel: "المتوسط {{pct}}%",
       studentsCount: "{{count}} طالب",
     },
     aiInsights: {
       title: "رؤى الذكاء الاصطناعي",
-      desc: "مُستخرجة من بيانات أداء Qudurat وTahsili الأخيرة",
+      desc: "مُستخرجة من أحدث بيانات أداء اختباري القدرات والتحصيلي",
     },
     alerts: {
       title: "التنبيهات",
@@ -320,7 +320,7 @@ export const ar: TranslationDict = {
     },
   },
   classes: {
-    subtitle: "إدارة فصول Qudurat وTahsili التي تدرّسها",
+    subtitle: "إدارة فصول القدرات والتحصيلي التي تدرّسها",
     createClass: "إنشاء فصل",
     noClasses: {
       title: "لا توجد فصول بعد",
@@ -412,7 +412,7 @@ export const ar: TranslationDict = {
         questionProgress: "السؤال {{current}} من {{total}}",
         previousQuestion: "السؤال السابق",
         nextQuestion: "السؤال التالي",
-        compositionQudurat: "120 سؤالاً: 60 كمياً و60 لفظياً",
+        compositionQudurat: "120 سؤالاً: 60 في القسم الكمي و60 في القسم اللفظي",
         compositionTahsili: "120 سؤالاً: 30 رياضيات و30 فيزياء و30 كيمياء و30 أحياء",
         questionNavigator: "التنقل بين الأسئلة",
         correct: "صحيحة",
@@ -448,7 +448,7 @@ export const ar: TranslationDict = {
     createQuestion: "إنشاء سؤال",
     bulkUploadCard: {
       title: "رفع جماعي للأسئلة من إكسل",
-      desc: "استورد ملفات .xlsx أو .xls تحتوي على أسئلة Qudurat أو Tahsili.",
+      desc: "استورد ملف جداول بيانات يحتوي على أسئلة اختباري القدرات أو التحصيلي.",
       goToUpload: "الانتقال إلى الرفع",
     },
     searchPlaceholder: "ابحث عن الأسئلة بالموضوع أو النص...",
@@ -529,9 +529,9 @@ export const ar: TranslationDict = {
     upload: {
       backToQuestions: "العودة إلى الأسئلة",
       title: "رفع جماعي للأسئلة",
-      desc: "استورد أسئلة Qudurat أو Tahsili من ملف إكسل (.xlsx / .xls)",
-      dropzoneLabel: "اضغط للرفع أو اسحب وأفلت ملف .xlsx / .xls",
-      dropzoneHint: "مثال: qudurat_question_bank.xlsx",
+      desc: "استورد أسئلة اختباري القدرات أو التحصيلي من ملف جداول بيانات.",
+      dropzoneLabel: "اضغط لاختيار ملف أو اسحبه وأفلته هنا",
+      dropzoneHint: "مثال: بنك_أسئلة_الاختبار",
       uploadingLabel: "جارٍ الرفع والتحليل... {{pct}}%",
       uploadComplete: "اكتمل الرفع",
       imported: "مستورد",
@@ -552,7 +552,7 @@ export const ar: TranslationDict = {
     },
   },
   materials: {
-    subtitle: "شارك ملخصات دراسية لاختباري Qudurat وTahsili مع فصولك",
+    subtitle: "شارك ملخصات دراسية لاختباري القدرات والتحصيلي مع فصولك",
     uploadMaterial: "رفع مادة",
     noMaterials: {
       title: "لا توجد مواد دراسية بعد",
@@ -570,21 +570,21 @@ export const ar: TranslationDict = {
     dialogTitle: "رفع مادة دراسية",
     dialogDesc: "شارك ملخصاً مع طلاب أحد الفصول",
     materialTitle: "عنوان المادة",
-    materialTitlePlaceholder: "مثال: ملخص النسب — Qudurat الكمي",
+    materialTitlePlaceholder: "مثال: ملخص النسب — القسم الكمي",
     examType: "نوع الاختبار",
     subject: "المادة",
     topic: "الموضوع",
     topicPlaceholder: "مثال: النسب",
     class: "الفصل",
     file: "الملف",
-    fileHint: "PDF أو DOCX — ملخصات أو ملاحظات دراسية",
+    fileHint: "ملفات مستندات تتضمن ملخصات أو ملاحظات دراسية",
     fileSelected: "تم اختيار: {{name}}",
     addToStudyPlan: "إضافة إلى الخطة الدراسية",
     toastFillRequired: "يرجى تعبئة جميع الحقول المطلوبة وإرفاق ملف.",
     toastAdded: "تمت الإضافة إلى الخطة الدراسية للطالب",
   },
   studyRooms: {
-    subtitle: "مساحات تفاعلية لمراجعة Qudurat وTahsili",
+    subtitle: "مساحات تفاعلية لمراجعة اختباري القدرات والتحصيلي",
     createRoom: "إنشاء غرفة دراسة",
     noRooms: {
       title: "لا توجد غرف دراسة بعد",
@@ -595,7 +595,7 @@ export const ar: TranslationDict = {
     dialogTitle: "إنشاء غرفة دراسة",
     dialogDesc: "ابدأ مساحة تفاعلية جديدة لأحد الفصول",
     roomName: "اسم الغرفة",
-    roomNamePlaceholder: "مثال: مراجعة Qudurat الكمي",
+    roomNamePlaceholder: "مثال: مراجعة القسم الكمي",
     examType: "نوع الاختبار",
     class: "الفصل",
     descriptionPlaceholder: "ما الغرض من هذه الغرفة؟",
@@ -673,7 +673,7 @@ export const ar: TranslationDict = {
     title: "مساعد الاجتماعات الذكي",
     closeAria: "إغلاق المساعد",
     welcomeMessage:
-      'مرحباً، أنا مساعد سبّاق الذكي. اطلب مني إعداد اجتماع جماعي — على سبيل المثال: "أنشئ اجتماع مراجعة لـ Qudurat لفصل العاشر أ."',
+      'مرحباً، أنا مساعد سبّاق الذكي. اطلب مني إعداد اجتماع جماعي — على سبيل المثال: "أنشئ اجتماع مراجعة لاختبار القدرات لفصل العاشر أ."',
     prefillMessage: "تم — لنعدّ اجتماعاً لفصل {{class}}. ما الاسم الذي تود إطلاقه على الاجتماع؟",
     askTitleResponse: "تمام. ما الاسم الذي تود إطلاقه على الاجتماع؟",
     askDatetimeResponse: "ما هو التاريخ والوقت؟",
@@ -716,7 +716,7 @@ export const ar: TranslationDict = {
     toastB2bApproved: "تمت الموافقة على طلب الشراكة! مرحباً بك شريكاً تعليمياً في سبّاق.",
     toastStudentAdded: "تمت إضافة {{name}} إلى {{class}}.",
     toastQuestionGenerated: "تمت إضافة سؤال جديد من الذكاء الاصطناعي للمراجعة.",
-    toastMeetingSimulated: "تم إنشاء جلسة Google Meet تجريبية.",
+    toastMeetingSimulated: "تم إنشاء جلسة اجتماع تجريبية.",
   },
   settings: {
     tabs: {
@@ -748,7 +748,7 @@ export const ar: TranslationDict = {
       title: "تفضيلات التطبيق",
       desc: "تفضيلات العرض العامة لهذا النموذج التجريبي",
       language: "اللغة: {{lang}}",
-      timezone: "المنطقة الزمنية: آسيا/الرياض (GMT+3)",
+      timezone: "المنطقة الزمنية: آسيا/الرياض (التوقيت العالمي المنسق +٣)",
       dateFormat: "تنسيق التاريخ: يوم شهر سنة",
     },
     security: {
@@ -781,12 +781,12 @@ export const ar: TranslationDict = {
   },
   enums: {
     examType: {
-      qudurat: "Qudurat",
-      tahsili: "Tahsili",
+      qudurat: "القدرات",
+      tahsili: "التحصيلي",
     },
     examTypeShort: {
-      qudurat: "Qudurat",
-      tahsili: "Tahsili",
+      qudurat: "القدرات",
+      tahsili: "التحصيلي",
     },
     group: {
       Advanced: "متقدم",

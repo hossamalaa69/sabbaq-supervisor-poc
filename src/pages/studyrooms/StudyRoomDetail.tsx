@@ -20,6 +20,7 @@ import { formatTime } from "@/utils/format";
 import { createDemoVoiceNote } from "@/utils/voiceNotes";
 import { toast } from "sonner";
 import { useTranslation } from "@/utils/i18n";
+import { localizePersonName, localizeStudyRoomContent } from "@/utils/contentTranslations";
 
 type TabValue = "chat" | "topics" | "questions";
 
@@ -53,6 +54,7 @@ export default function StudyRoomDetail() {
     );
   }
 
+  const displayRoom = localizeStudyRoomContent(room, lang);
   const participants = students.filter(
     (student) =>
       student.classId === room.classId && student.accessStatus !== "deactivated"
@@ -63,7 +65,12 @@ export default function StudyRoomDetail() {
 
   function handleSend() {
     if (!messageInput.trim()) return;
-    sendMessage(room!.id, { authorId: "teacher", authorName: "Hossam Alaa", authorRole: "teacher", text: messageInput });
+    sendMessage(room!.id, {
+      authorId: "teacher",
+      authorName: lang === "ar" ? "حسام علاء" : "Hossam Alaa",
+      authorRole: "teacher",
+      text: messageInput,
+    });
     setMessageInput("");
   }
 
@@ -71,7 +78,7 @@ export default function StudyRoomDetail() {
     const currentRoom = room!;
     sendMessage(currentRoom.id, {
       authorId: "teacher",
-      authorName: "Hossam Alaa",
+      authorName: lang === "ar" ? "حسام علاء" : "Hossam Alaa",
       authorRole: "teacher",
       text: "",
       voiceNote,
@@ -82,7 +89,7 @@ export default function StudyRoomDetail() {
     window.setTimeout(() => {
       useStudyRoomStore.getState().sendMessage(currentRoom.id, {
         authorId: responder.id,
-        authorName: responder.name,
+        authorName: localizePersonName(responder.name, lang),
         authorRole: "student",
         text: "",
         voiceNote: createDemoVoiceNote(3),
@@ -92,7 +99,7 @@ export default function StudyRoomDetail() {
         title: { en: "New voice note", ar: "رسالة صوتية جديدة" },
         message: {
           en: `${responder.name} replied with a voice note in ${currentRoom.name}.`,
-          ar: `رد ${responder.name} برسالة صوتية في ${currentRoom.name}.`,
+          ar: `رد ${localizePersonName(responder.name, "ar")} برسالة صوتية في ${localizeStudyRoomContent(currentRoom, "ar").name}.`,
         },
         important: false,
         link: `/study-rooms/${currentRoom.id}`,
@@ -106,7 +113,12 @@ export default function StudyRoomDetail() {
       toast.error(t("studyRooms.detail.toastTopicTitleRequired"));
       return;
     }
-    createTopic(room!.id, { title, description: topicDescription || `Discussion about ${title}.` });
+    createTopic(room!.id, {
+      title,
+      description:
+        topicDescription ||
+        (lang === "ar" ? `نقاش حول ${title}.` : `Discussion about ${title}.`),
+    });
     toast.success(t("studyRooms.detail.toastTopicCreated"));
     setTopicModalOpen(false);
     setTopicTitle("");
@@ -126,10 +138,10 @@ export default function StudyRoomDetail() {
         <CardContent className="flex flex-wrap items-center justify-between gap-3 pt-5">
           <div>
             <div className="mb-1 flex items-center gap-2">
-              <h2 className="text-lg font-bold">{room.name}</h2>
+              <h2 className="text-lg font-bold">{displayRoom.name}</h2>
               <ExamTypeBadge examType={room.examType} />
             </div>
-            <p className="text-sm text-muted-foreground">{room.description}</p>
+            <p className="text-sm text-muted-foreground">{displayRoom.description}</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <OnlineCount id={room.id} total={participants.length} />
@@ -157,7 +169,7 @@ export default function StudyRoomDetail() {
         <Card>
           <CardContent className="flex flex-col gap-3 pt-5">
             <div className="flex max-h-[28rem] min-h-[20rem] flex-col gap-3 overflow-y-auto scrollbar-thin pe-1">
-              {room.messages.map((msg) => (
+              {displayRoom.messages.map((msg) => (
                 <div key={msg.id} className={cn("flex gap-2", msg.authorRole === "teacher" && "flex-row-reverse")}>
                   <Avatar name={msg.authorName} size="sm" color={msg.authorRole === "teacher" ? "#4C44E4" : "#8155E7"} />
                   <div className={cn("max-w-[75%] rounded-xl px-3 py-2 text-sm", msg.authorRole === "teacher" ? "bg-primary text-primary-foreground" : "bg-muted")}>
@@ -205,7 +217,7 @@ export default function StudyRoomDetail() {
             <EmptyState icon={<ListChecks className="h-8 w-8" />} title={t("studyRooms.detail.noTopics.title")} description={t("studyRooms.detail.noTopics.desc")} />
           ) : (
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {room.topics.map((topic) => (
+              {displayRoom.topics.map((topic) => (
                 <button key={topic.id} onClick={() => navigate(`/study-rooms/${room.id}/topics/${topic.id}`)} className="text-start">
                   <Card className="h-full transition-shadow hover:shadow-popover">
                     <CardContent className="pt-4">
@@ -226,15 +238,18 @@ export default function StudyRoomDetail() {
             <div>
               <p className="mb-2 text-xs font-semibold uppercase text-muted-foreground">{t("studyRooms.detail.suggestedTopicsFor", { exam: t(`enums.examType.${room.examType}`) })}</p>
               <div className="flex flex-wrap gap-2">
-                {suggestedTopics.map((t) => (
+                {suggestedTopics.map((topic) => {
+                  const topicLabel = t(`enums.subject.${topic}`);
+                  return (
                   <button
-                    key={t}
-                    onClick={() => handleCreateTopic(t)}
+                    key={topic}
+                    onClick={() => handleCreateTopic(topicLabel)}
                     className="rounded-full border border-dashed border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary"
                   >
-                    + {t}
+                    + {topicLabel}
                   </button>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -253,7 +268,7 @@ export default function StudyRoomDetail() {
             <EmptyState icon={<Plus className="h-8 w-8" />} title={t("studyRooms.detail.noQuestionPosts.title")} description={t("studyRooms.detail.noQuestionPosts.desc")} />
           ) : (
             <div className="space-y-3">
-              {room.questionPosts.map((post) => (
+              {displayRoom.questionPosts.map((post) => (
                 <QuestionPostCard key={post.id} post={post} totalStudents={participants.length} />
               ))}
             </div>

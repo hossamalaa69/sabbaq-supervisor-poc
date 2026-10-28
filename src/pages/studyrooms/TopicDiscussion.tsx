@@ -13,6 +13,7 @@ import { cn } from "@/utils/cn";
 import { formatTime } from "@/utils/format";
 import { useTranslation } from "@/utils/i18n";
 import { createDemoVoiceNote } from "@/utils/voiceNotes";
+import { localizePersonName, localizeStudyRoomContent } from "@/utils/contentTranslations";
 
 export default function TopicDiscussion() {
   const { t, lang } = useTranslation();
@@ -42,13 +43,15 @@ export default function TopicDiscussion() {
     (student) =>
       student.classId === room.classId && student.accessStatus !== "deactivated"
   );
+  const displayRoom = localizeStudyRoomContent(room, lang);
+  const displayTopic = displayRoom.topics.find((item) => item.id === topic.id) ?? topic;
 
   function handleSendVoiceNote(voiceNote: StudyRoomVoiceNote) {
     const currentRoom = room!;
     const currentTopic = topic!;
     sendTopicMessage(currentRoom.id, currentTopic.id, {
       authorId: "teacher",
-      authorName: "Hossam Alaa",
+      authorName: lang === "ar" ? "حسام علاء" : "Hossam Alaa",
       authorRole: "teacher",
       text: "",
       voiceNote,
@@ -59,7 +62,7 @@ export default function TopicDiscussion() {
     window.setTimeout(() => {
       useStudyRoomStore.getState().sendTopicMessage(currentRoom.id, currentTopic.id, {
         authorId: responder.id,
-        authorName: responder.name,
+        authorName: localizePersonName(responder.name, lang),
         authorRole: "student",
         text: "",
         voiceNote: createDemoVoiceNote(3),
@@ -69,7 +72,7 @@ export default function TopicDiscussion() {
         title: { en: "New voice note", ar: "رسالة صوتية جديدة" },
         message: {
           en: `${responder.name} replied with a voice note in ${currentTopic.title}.`,
-          ar: `رد ${responder.name} برسالة صوتية في ${currentTopic.title}.`,
+          ar: `رد ${localizePersonName(responder.name, "ar")} برسالة صوتية في ${(localizeStudyRoomContent(currentRoom, "ar").topics.find((item) => item.id === currentTopic.id) ?? currentTopic).title}.`,
         },
         important: false,
         link: `/study-rooms/${currentRoom.id}/topics/${currentTopic.id}`,
@@ -81,7 +84,7 @@ export default function TopicDiscussion() {
     if (!messageInput.trim()) return;
     sendTopicMessage(room!.id, topic!.id, {
       authorId: "teacher",
-      authorName: "Hossam Alaa",
+      authorName: lang === "ar" ? "حسام علاء" : "Hossam Alaa",
       authorRole: "teacher",
       text: messageInput,
     });
@@ -94,13 +97,13 @@ export default function TopicDiscussion() {
         onClick={() => navigate(`/study-rooms/${room.id}`)}
         className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground"
       >
-        <ArrowLeft className={cn("h-4 w-4", lang === "ar" && "rotate-180")} /> {t("studyRooms.topic.backToNamedRoom", { room: room.name })}
+        <ArrowLeft className={cn("h-4 w-4", lang === "ar" && "rotate-180")} /> {t("studyRooms.topic.backToNamedRoom", { room: displayRoom.name })}
       </button>
 
       <Card>
         <CardContent className="pt-5">
-          <h2 className="text-lg font-bold">{topic.title}</h2>
-          <p className="mt-1 text-sm text-muted-foreground">{topic.description}</p>
+          <h2 className="text-lg font-bold">{displayTopic.title}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{displayTopic.description}</p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <Users className="h-3.5 w-3.5" /> {t("studyRooms.topic.participantsCount", { count: participants.length })}
@@ -113,10 +116,10 @@ export default function TopicDiscussion() {
       <Card>
         <CardContent className="flex flex-col gap-3 pt-5">
           <div className="flex min-h-[20rem] max-h-[28rem] flex-col gap-3 overflow-y-auto scrollbar-thin pe-1">
-            {topic.messages.length === 0 && (
+            {displayTopic.messages.length === 0 && (
               <p className="py-10 text-center text-sm text-muted-foreground">{t("studyRooms.topic.noMessages")}</p>
             )}
-            {topic.messages.map((msg) => (
+            {displayTopic.messages.map((msg) => (
               <div key={msg.id} className={cn("flex gap-2", msg.authorRole === "teacher" && "flex-row-reverse")}>
                 <Avatar name={msg.authorName} size="sm" color={msg.authorRole === "teacher" ? "#4C44E4" : "#8155E7"} />
                 <div className={cn("max-w-[75%] rounded-xl px-3 py-2 text-sm", msg.authorRole === "teacher" ? "bg-primary text-primary-foreground" : "bg-muted")}>

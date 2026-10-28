@@ -10,13 +10,14 @@ import { useQuestionsStore } from "@/store";
 import { EXAM_TYPES, examSections, type ExamType, type QuestionDifficulty, type QuestionType } from "@/types";
 import { toast } from "sonner";
 import { useTranslation } from "@/utils/i18n";
+import { localizeChoiceLabel } from "@/utils/contentTranslations";
 
 const difficulties: QuestionDifficulty[] = ["Easy", "Medium", "Hard"];
 const questionTypes: QuestionType[] = ["Multiple Choice", "True/False"];
 
 export default function CreateQuestionPage() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const addQuestion = useQuestionsStore((s) => s.addQuestion);
 
   const [examType, setExamType] = useState<ExamType>("qudurat");
@@ -185,15 +186,25 @@ export default function CreateQuestionPage() {
                     onChange={() => setCorrectChoiceId(choice.id)}
                     className="h-4 w-4 shrink-0 text-primary"
                   />
-                  <span className="w-6 shrink-0 text-sm font-bold">{choice.label}</span>
+                  <span className="w-6 shrink-0 text-sm font-bold">
+                    {localizeChoiceLabel(choice.label, choices.indexOf(choice), lang, type === "True/False")}
+                  </span>
                   {type === "Multiple Choice" ? (
                     <Input
                       value={choice.text}
                       onChange={(e) => updateChoiceText(choice.id, e.target.value)}
-                      placeholder={t("questions.create.choicePlaceholder", { label: choice.label })}
+                      placeholder={t("questions.create.choicePlaceholder", {
+                        label: localizeChoiceLabel(choice.label, choices.indexOf(choice), lang),
+                      })}
                     />
                   ) : (
-                    <span className="flex-1 text-sm text-muted-foreground">{choice.text}</span>
+                    <span className="flex-1 text-sm text-muted-foreground">
+                      {type === "True/False" && lang === "ar"
+                        ? choices.indexOf(choice) === 0
+                          ? "صحيح"
+                          : "خطأ"
+                        : choice.text}
+                    </span>
                   )}
                   {type === "Multiple Choice" && choices.length > 2 && (
                     <button onClick={() => removeChoice(choice.id)} className="shrink-0 text-muted-foreground hover:text-destructive">
@@ -242,7 +253,14 @@ export default function CreateQuestionPage() {
                     choice.id === correctChoiceId ? "border-success bg-success/5" : "border-border"
                   }`}
                 >
-                  <span className="font-bold">{choice.label}.</span> {choice.text || t("common.dash")}
+                  <span className="font-bold">
+                    {localizeChoiceLabel(choice.label, choices.indexOf(choice), lang, type === "True/False")}.
+                  </span>{" "}
+                  {type === "True/False" && lang === "ar"
+                    ? choices.indexOf(choice) === 0
+                      ? "صحيح"
+                      : "خطأ"
+                    : choice.text || t("common.dash")}
                 </div>
               ))}
             </div>

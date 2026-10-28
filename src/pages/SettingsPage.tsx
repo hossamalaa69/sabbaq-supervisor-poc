@@ -7,6 +7,7 @@ import { Tabs } from "@/components/ui/Tabs";
 import { useAuthStore, useNotificationsStore } from "@/store";
 import { toast } from "sonner";
 import { useTranslation } from "@/utils/i18n";
+import { localizePersonName } from "@/utils/contentTranslations";
 
 type TabValue = "profile" | "notifications" | "preferences" | "security";
 
@@ -47,7 +48,11 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div>
               <Label>{t("settings.profile.fullName")}</Label>
-              <Input className="mt-1.5" value={name} onChange={(e) => setName(e.target.value)} />
+              <Input
+                className="mt-1.5"
+                value={localizePersonName(name, lang)}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div>
               <Label>{t("settings.profile.email")}</Label>

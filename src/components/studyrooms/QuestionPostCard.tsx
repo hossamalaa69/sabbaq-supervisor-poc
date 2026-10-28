@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import type { StudyRoomQuestionPost } from "@/types";
 import { formatDateTime } from "@/utils/format";
 import { useTranslation } from "@/utils/i18n";
+import { localizeChoiceLabel } from "@/utils/contentTranslations";
 
 export function QuestionPostCard({
   post,
@@ -13,7 +14,7 @@ export function QuestionPostCard({
   post: StudyRoomQuestionPost;
   totalStudents: number;
 }) {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const responded = post.responses.length;
   const correctCount = post.responses.filter((r) => r.correct).length;
 
@@ -36,7 +37,7 @@ export function QuestionPostCard({
               <div key={choice.id} className="space-y-1">
                 <div className="flex items-center justify-between text-xs">
                   <span className="flex items-center gap-1 font-medium">
-                    {choice.label}. {choice.text}
+                    {localizeChoiceLabel(choice.label, post.choices.indexOf(choice), lang)}. {choice.text}
                     {isCorrect && <CheckCircle2 className="h-3.5 w-3.5 text-success" />}
                   </span>
                   <span className="text-muted-foreground">{t("studyRooms.questionPost.choiceCountPct", { count, pct })}</span>
@@ -49,7 +50,7 @@ export function QuestionPostCard({
 
         <div className="flex items-center justify-between border-t border-border pt-2 text-xs text-muted-foreground">
           <span>{t("studyRooms.questionPost.correctOf", { correct: correctCount, total: responded })}</span>
-          <span>{formatDateTime(post.createdAt)}</span>
+          <span>{formatDateTime(post.createdAt, lang)}</span>
         </div>
       </CardContent>
     </Card>

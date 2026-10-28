@@ -6,6 +6,7 @@ import { relativeTime } from "@/utils/format";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "@/utils/i18n";
 import { cn } from "@/utils/cn";
+import { localizeTeacherContent } from "@/utils/contentTranslations";
 
 export function Topbar({ title, onMenuClick }: { title: string; onMenuClick: () => void }) {
   const teacher = useAuthStore((s) => s.teacher);
@@ -14,6 +15,7 @@ export function Topbar({ title, onMenuClick }: { title: string; onMenuClick: () 
   const markAllRead = useNotificationsStore((s) => s.markAllRead);
   const navigate = useNavigate();
   const { t, lang, setLang } = useTranslation();
+  const displayTeacher = localizeTeacherContent(teacher, lang);
   const [notifOpen, setNotifOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const recentNotifications = notifications.slice(0, 5);
@@ -130,10 +132,10 @@ export function Topbar({ title, onMenuClick }: { title: string; onMenuClick: () 
               setNotifOpen(false);
             }}
           >
-            <Avatar name={teacher.name} size="sm" />
+            <Avatar name={displayTeacher.name} size="sm" />
             <div className="hidden text-start sm:block">
-              <p className="text-sm font-semibold leading-tight">{teacher.name}</p>
-              <p className="text-xs leading-tight text-muted-foreground">{teacher.role}</p>
+              <p className="text-sm font-semibold leading-tight">{displayTeacher.name}</p>
+              <p className="text-xs leading-tight text-muted-foreground">{displayTeacher.role}</p>
             </div>
             <ChevronDown className="h-4 w-4 text-muted-foreground" />
           </button>
